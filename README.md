@@ -1,2 +1,7 @@
-# 2D-game-tutorial-2024
+# 2D game 
+
+
  
+## tech use:
+- simple sound manager
+- damage popup
