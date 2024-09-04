@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private GameInput gameInput;
     private bool isWalking;
+    private Rigidbody2D playerRigidbody2D;
+    private Vector3 moveDir;
 
     private void Awake()
     {
@@ -18,20 +20,46 @@ public class Player : MonoBehaviour
         }
 
         Instance = this;
+
+        playerRigidbody2D = GetComponent<Rigidbody2D>();
     }
     private void Update()
     {
+        HandleMovement();
+        
+    }
 
+    private void HandleMovement()
+    {
         Vector2 inputVector = gameInput.GetMovementVectorNormalized();
 
-        Vector3 moveDir = new Vector3(inputVector.x, inputVector.y, 0f);
-        transform.position += moveDir * moveSpeed * Time.deltaTime;
+        moveDir = new Vector3(inputVector.x, inputVector.y, 0f);
+        /*transform.position += moveDir * moveSpeed * Time.deltaTime;*/
+
+        
 
         isWalking = moveDir != Vector3.zero;
     }
-
+    private void FixedUpdate()
+    {
+        playerRigidbody2D.MovePosition(transform.position + moveDir * moveSpeed * Time.fixedDeltaTime);
+    }
     public bool IsWalking()
     {
         return isWalking;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("Enter Collision!!!");
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        Debug.Log("Stay Collision!!!");
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        Debug.Log("Exit Collision!!!");
     }
 }
