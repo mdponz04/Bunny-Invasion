@@ -9,8 +9,10 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private GameInput gameInput;
     private bool isWalking;
+
     private Rigidbody2D playerRigidbody2D;
     private Vector3 moveDir;
+    
 
     private void Awake()
     {
@@ -36,30 +38,17 @@ public class Player : MonoBehaviour
         moveDir = new Vector3(inputVector.x, inputVector.y, 0f);
         /*transform.position += moveDir * moveSpeed * Time.deltaTime;*/
 
-        
-
         isWalking = moveDir != Vector3.zero;
     }
+    
     private void FixedUpdate()
     {
+        //Handle physics(push enemy away and cannot walk through wall)
         playerRigidbody2D.MovePosition(transform.position + moveDir * moveSpeed * Time.fixedDeltaTime);
     }
     public bool IsWalking()
     {
         return isWalking;
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("Enter Collision!!!");
-    }
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        Debug.Log("Stay Collision!!!");
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        Debug.Log("Exit Collision!!!");
-    }
+    
 }

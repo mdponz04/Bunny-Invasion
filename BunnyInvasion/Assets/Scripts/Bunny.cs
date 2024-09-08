@@ -11,19 +11,18 @@ public class Bunny : MonoBehaviour
 
     private void Update()
     {
-        HandleMovement();
+        HandleRoaming();
         HandleInteraction();
     }
 
-    private void HandleMovement()
+    private void HandleRoaming()
     {
         //path-finding
-        Vector3 moveDir = new Vector3(0f,-1f,0f);
-        transform.position += moveDir * moveSpeed * Time.deltaTime;
+        
     }
     private void HandleInteraction()
     {
-        //Touch the fence and do damage
+        //Touch player then do damage
     }
 
     private void SpawnBunny()
