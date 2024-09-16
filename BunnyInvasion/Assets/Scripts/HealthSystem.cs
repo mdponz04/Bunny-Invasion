@@ -1,41 +1,61 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-public class HealthSystem : MonoBehaviour
+namespace HealthNamespace
 {
-    public event EventHandler OnHealthChanged;
-    public int health { get; private set; }
-    public int maxHealth { get; private set; }
-    public HealthSystem(int maxHealth)
+    public class HealthSystem : MonoBehaviour
     {
-        this.maxHealth = maxHealth;
-        this.health = maxHealth;
-    }
-
-    public void Damage(int DamageAmount)
-    {
-        health -= DamageAmount;
-        if(health < 0)
+        public event EventHandler OnHealthChanged;
+        public event EventHandler OnDeath;
+        public float health { get; private set; }
+        public float maxHealth { get; private set; }
+        public void Setup(float maxHealth)
         {
-            health = 0;
-        }
-        OnHealthChanged?.Invoke(this, EventArgs.Empty);
-    }
-    
-    public void Heal(int HealAmount)
-    {
-        health += HealAmount;
-        if (health > maxHealth) 
-        {
+            this.maxHealth = maxHealth;
             health = maxHealth;
         }
-        OnHealthChanged?.Invoke(this, EventArgs.Empty);
-    }
 
-    public float GetHealthPercent()
-    {
-        return (float)health / maxHealth;
+        public void Damage(float DamageAmount)
+        {
+            health -= DamageAmount;
+            if (health < 0)
+            {
+                health = 0;
+            }
+            OnHealthChanged?.Invoke(this, EventArgs.Empty);
+
+            //trigger death
+            if(health <= 0)
+            {
+
+            }
+        }
+
+        public void Heal(float HealAmount)
+        {
+            health += HealAmount;
+            if (health > maxHealth)
+            {
+                health = maxHealth;
+            }
+            OnHealthChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        public float GetHealthPercent()
+        {
+            return health / maxHealth;
+        }
+
+        public void Die()
+        {
+            //trigger death event
+            OnDeath?.Invoke(this, EventArgs.Empty);
+
+            Debug.Log("Character has died!");
+            
+        }
     }
 }

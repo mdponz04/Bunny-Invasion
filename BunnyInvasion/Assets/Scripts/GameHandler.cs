@@ -2,21 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using HealthNamespace;
 
 public class GameHandler : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI timerUI;
     private float elapsedTime = 0f; //The time game running in second 
     private bool isGameRunning;
-    private HealthBar healthBar;
-    // Start is called before the first frame update
+    
+
     void Start()
     {
         Debug.Log("Game start!!!");
         isGameRunning = true;
 
-        HealthSystem healthSystem = new(100);
-        healthBar.Setup(healthSystem);
+        
     }
 
     // Update is called once per frame
