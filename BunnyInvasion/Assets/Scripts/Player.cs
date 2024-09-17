@@ -8,7 +8,7 @@ using static PlayerNamespace.PlayerVisual;
 
 namespace PlayerNamespace
 {
-    public class Player : MonoBehaviour
+    public class Player : MonoBehaviour, IDamageSource
     {
         //Singleton pattern
         public static Player Instance { get; private set; }
@@ -59,10 +59,6 @@ namespace PlayerNamespace
             healthSystem.Setup(maxHealth);
             healthBar.Setup(healthSystem);
         }
-        private void Start()
-        {
-            EnableAttackZone();
-        }
 
         private void Update()
         {
@@ -82,11 +78,11 @@ namespace PlayerNamespace
 
         private void HandleAttacking()
         {
+            
             if (Input.GetMouseButtonDown(0) && Time.time >= nextAttackTime)
             {
                 //Enable attack zone
                 EnableAttackZone();
-
                 //perform attack
                 Vector3 mousePosition = GetMouseWorldPosition2D();
 
@@ -99,9 +95,11 @@ namespace PlayerNamespace
 
                 //reset attack cooldown
                 nextAttackTime = Time.time + attackCooldown;
+
+                //Disable attack zone after short delay, the time delay is the time animation action
+                float attackAnimationDuration = 0.3f;
+                StartCoroutine(DisableAttackZoneAfterDelay(attackAnimationDuration));
             }
-            //Disable attack zone after short delay, the time delay is the time animation action
-            StartCoroutine(DisableAttackZoneAfterDelay(0.3f));
         }
 
         private void FixedUpdate()
@@ -156,11 +154,7 @@ namespace PlayerNamespace
         {
             return attackDamage;
         }
-        public HealthSystem GetHealthSystem()
-        {
-            return healthSystem;
-        }
-        
+        float IDamageSource.dealDamage() => GetAttackDamage();
     }
 }
 

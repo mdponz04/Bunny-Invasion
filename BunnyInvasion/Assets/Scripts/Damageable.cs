@@ -17,7 +17,11 @@ namespace DamageNamespace
             }
         }
 
-
+        public void takeDamage(float damageAmount)
+        {
+            Debug.Log("damage: " + damageAmount);
+            healthSystem.Damage(damageAmount);
+        }
     }
 }
 

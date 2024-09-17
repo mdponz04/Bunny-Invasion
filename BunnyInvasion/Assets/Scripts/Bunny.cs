@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace BunnyNamespace
 {
-    public class Bunny : MonoBehaviour
+    public class Bunny : MonoBehaviour, IDamageSource
     {
         //Bunny stats
         /*[SerializeField] private float moveSpeed = .5f;*/
@@ -54,10 +54,7 @@ namespace BunnyNamespace
         {
             return bunnyAttackDamage;
         }
-        public HealthSystem GetHealthSystem()
-        {
-            return healthSystem;
-        }
+        float IDamageSource.dealDamage() => GetAttackDamage();
     }
 }
 
