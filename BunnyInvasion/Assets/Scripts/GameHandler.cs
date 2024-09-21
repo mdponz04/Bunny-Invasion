@@ -6,7 +6,7 @@ using HealthNamespace;
 
 public class GameHandler : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI timerUI;
+    [SerializeField] private TextMeshProUGUI timerUI;
     private float elapsedTime = 0f; //The time game running in second 
     private bool isGameRunning;
     

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace BunnyNamespace
 {
@@ -15,9 +16,10 @@ namespace BunnyNamespace
         
         //Component attach fields
         [SerializeField] private HealthBar healthBar;
+        
+        
         private HealthSystem healthSystem;
         
-
         private void Awake()
         {
             //Setup health
@@ -29,32 +31,27 @@ namespace BunnyNamespace
             healthSystem.Setup(bunnyMaxHealth);
             healthBar.Setup(healthSystem);
         }
+        
         private void Update()
         {
-            HandleRoaming();
-            HandleInteraction();
+            HandleFinding();
+            HandleAttack();
+
+            
         }
 
-        private void HandleRoaming()
+        private void HandleFinding()
         {
-            //path-finding
+            //Path finding
 
         }
-        private void HandleInteraction()
+        private void HandleAttack()
         {
             //Touch player then do damage
         }
 
-        private void SpawnBunny()
-        {
-            //Spawn random in map in a specific timing
-        }
-
-        public float GetAttackDamage()
-        {
-            return bunnyAttackDamage;
-        }
-        float IDamageSource.dealDamage() => GetAttackDamage();
+        
+        float IDamageSource.dealDamage() => bunnyAttackDamage;
     }
 }
 

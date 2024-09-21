@@ -97,7 +97,7 @@ namespace PlayerNamespace
                 nextAttackTime = Time.time + attackCooldown;
 
                 //Disable attack zone after short delay, the time delay is the time animation action
-                float attackAnimationDuration = 0.3f;
+                float attackAnimationDuration = 0.2f;
                 StartCoroutine(DisableAttackZoneAfterDelay(attackAnimationDuration));
             }
         }
