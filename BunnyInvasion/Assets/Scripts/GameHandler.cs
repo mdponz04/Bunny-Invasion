@@ -9,18 +9,16 @@ public class GameHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timerUI;
     private float elapsedTime = 0f; //The time game running in second 
     private bool isGameRunning;
-    
 
-    void Start()
+
+    private void Start()
     {
         Debug.Log("Game start!!!");
         isGameRunning = true;
-
-        
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (isGameRunning)
         {
@@ -33,4 +31,7 @@ public class GameHandler : MonoBehaviour
             timerUI.text = string.Format("{0:00}:{1:00}", minute, second);
         }
     }
+
+    public float GetElapsedTime() => elapsedTime;
+    
 }

@@ -63,6 +63,7 @@ namespace PlayerNamespace
         private void Update()
         {
             HandleMovement();
+            HandleAttackZoneRotating();
             HandleAttacking();
         }
 
@@ -100,6 +101,33 @@ namespace PlayerNamespace
                 float attackAnimationDuration = 0.2f;
                 StartCoroutine(DisableAttackZoneAfterDelay(attackAnimationDuration));
             }
+        }
+
+        private void HandleAttackZoneRotating()
+        {
+            //Get the move direction 
+            Vector2 moveDir = GetMoveDir();
+
+
+            if (moveDir == Vector2.zero)
+            {
+                return;
+            }
+
+            float angle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
+            attackZone.transform.eulerAngles = new Vector3(0f, 0f, angle);
+            //my local scale of attack zone
+            Vector3 localScale = new Vector3(1f, 1f, 1f);
+
+            if (angle > 90 || angle < -90)
+            {
+                localScale.y = -1f;
+            }
+            else
+            {
+                localScale.y = +1f;
+            }   
+            attackZone.transform.localScale = localScale;
         }
 
         private void FixedUpdate()
@@ -149,12 +177,8 @@ namespace PlayerNamespace
             yield return new WaitForSeconds(delay); // Wait for the delay
             DisableAttackZone();                    // Disable the attack zone after the delay
         }
-
-        public float GetAttackDamage()
-        {
-            return attackDamage;
-        }
-        float IDamageSource.dealDamage() => GetAttackDamage();
+        
+        float IDamageSource.dealDamage() => attackDamage;
     }
 }
 

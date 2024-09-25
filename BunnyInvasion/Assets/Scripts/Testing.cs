@@ -7,7 +7,7 @@ using HealthNamespace;
 
 public class Testing : MonoBehaviour
 {
-    [SerializeField] private Player player;
+    /*[SerializeField] private Player player;
 
     private void Start()
     {
@@ -17,7 +17,7 @@ public class Testing : MonoBehaviour
     private void Player_OnAttack(object sender, Player.OnAttackEventArgs e)
     {
         Debug.Log("Attack from: " + e.attackEndPointPosition + " to: " + e.attackPosition);
-    }
+    }*/
 
     
 }

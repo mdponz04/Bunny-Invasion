@@ -43,7 +43,6 @@ namespace BunnyNamespace
         private void HandleFinding()
         {
             //Path finding
-
         }
         private void HandleAttack()
         {

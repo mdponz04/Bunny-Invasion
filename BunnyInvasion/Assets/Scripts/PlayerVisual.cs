@@ -48,7 +48,7 @@ namespace PlayerNamespace
 
             float angle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
             playerVisualTransform.eulerAngles = new Vector3(0f, 0f, angle);
-
+            //my local scale of visual transform
             Vector3 localScale = new Vector3(5f, 5f, 5f);
 
             if (angle > 90 || angle < -90)
@@ -59,6 +59,7 @@ namespace PlayerNamespace
             {
                 localScale.y = +5f;
             }
+
             playerVisualTransform.localScale = localScale;
         }
     }
