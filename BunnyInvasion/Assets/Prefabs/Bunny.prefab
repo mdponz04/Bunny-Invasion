@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5530470394665694220}
@@ -137,7 +137,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.87, y: 15.43, z: -1}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6281689793713172498}
@@ -176,7 +176,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.016303062, y: -0.42920542}
+  m_Offset: {x: 0.09478259, y: -2.295899}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -187,7 +187,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.75803185, y: 0.16141129}
+  m_Size: {x: 3.3366466, y: 0.464118}
   m_EdgeRadius: 0
 --- !u!50 &8294664438672914966
 Rigidbody2D:
@@ -269,23 +269,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7218982781127050622, guid: 345a5466a149d72439969f8e0dc07f2f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.25
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7218982781127050622, guid: 345a5466a149d72439969f8e0dc07f2f, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.25
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7218982781127050622, guid: 345a5466a149d72439969f8e0dc07f2f, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.25
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7218982781127050622, guid: 345a5466a149d72439969f8e0dc07f2f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.09
       objectReference: {fileID: 0}
     - target: {fileID: 7218982781127050622, guid: 345a5466a149d72439969f8e0dc07f2f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.64
+      value: 3.07
       objectReference: {fileID: 0}
     - target: {fileID: 7218982781127050622, guid: 345a5466a149d72439969f8e0dc07f2f, type: 3}
       propertyPath: m_LocalPosition.z

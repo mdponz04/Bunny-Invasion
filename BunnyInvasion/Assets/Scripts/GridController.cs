@@ -12,7 +12,7 @@ namespace mapNamespace
         [SerializeField] private Grid grid;
         private int width;
         private int height;
-        private float cellSize = 1f;
+        private float cellSize;
         public Node[,] gridArray;
 
         // Start method to initialize the grid
@@ -30,12 +30,13 @@ namespace mapNamespace
                 BoundsInt tilemapBounds = tilemap.cellBounds;
 
                 // Use the bounds to determine width and height
-                width = tilemapBounds.size.x;
-                height = tilemapBounds.size.y;
+                width = tilemapBounds.size.x +1;
+                height = tilemapBounds.size.y +1;
                 
                 
             }
-
+            //Because I suppose to make square cells for tilemap so just got 1 edge is enough
+            cellSize = tilemap.cellSize.x;
             Debug.Log($"Grid Width: {width}, Grid Height: {height}");
         }
 

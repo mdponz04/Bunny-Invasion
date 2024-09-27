@@ -27,7 +27,7 @@ namespace PlayerNamespace
         [SerializeField] private float maxHealth = 100f;
         [SerializeField] private float attackDamage = 5f;
         //Component attach fields
-        [SerializeField] private GameInput gameInput;
+        [SerializeField]private GameInput gameInput;
         [SerializeField] private HealthBar healthBar;
         [SerializeField] private Transform attackEndPointPositionTransform;
         [SerializeField] private BoxCollider2D attackZone;
