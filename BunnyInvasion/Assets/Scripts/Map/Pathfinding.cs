@@ -1,0 +1,165 @@
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+
+namespace mapNamespace
+{
+    public class Pathfinding
+    {
+        private const int MOVE_STRAIGHT_COST = 10;
+        private const int MOVE_DIAGONAL_COST = 14;
+
+        private Grid grid;
+        private int width;
+        private int height;
+        //open list for available node to move
+        private List<Node> openList;
+        //close list is the node list that move over
+        private List<Node> closeList;
+        public Pathfinding(int width, int height, Grid grid)
+        {
+            this.grid = grid;
+            this.width = width;
+            this.height = height;
+        }
+        public List<Node> findPath(int startX, int startY, int endX, int endY)
+        {
+            //Grid position for start and end node
+            Node startNode = grid.GetValue(startX, startY);
+            Node endNode = grid.GetValue(endX, endY);
+            //Set value for open list
+            openList = new List<Node> { startNode };
+            closeList = new List<Node>();
+            //Set start value for all nodes in grid
+            for(int x = 0; x < grid.width; x++)
+            {
+                for(int y = 0; y < grid.height; y++)
+                {
+                    Node pathNode = grid.GetValue(x, y);
+                    pathNode.gCost = int.MaxValue;
+                    pathNode.calculateFCost();
+                    pathNode.cameFromNode = null;
+                }
+            }
+
+            startNode.gCost = 0;
+            startNode.hCost = CalculateDistanceCost(startNode, endNode);
+            startNode.calculateFCost();
+            //The cycle of finding path
+            while(openList.Count > 0)
+            {
+                Node currentNode = GetLowestFCostNode(openList);
+                if(currentNode == endNode)
+                {
+                    return CalculatePath(endNode);
+                }
+
+                openList.Remove(currentNode);
+                closeList.Add(currentNode);
+
+                foreach(Node nearNode in GetNearNodeList(currentNode))
+                {
+                    if (closeList.Contains(nearNode)) continue;
+                    if (!nearNode.isWalkable)
+                    {
+                        closeList.Add(nearNode);
+                        continue;
+                    }
+
+                    int temporaryGCost = currentNode.gCost + CalculateDistanceCost(currentNode, nearNode);
+                    if(temporaryGCost < nearNode.gCost)
+                    {
+                        nearNode.cameFromNode = currentNode;
+                        nearNode.gCost = temporaryGCost;
+                        nearNode.hCost = CalculateDistanceCost(nearNode, endNode);
+                        nearNode.calculateFCost();
+                    }
+
+                    if (!openList.Contains(nearNode))
+                    {
+                        openList.Add(nearNode);
+                    }
+                }
+            }
+            //Run out of nodes in open list
+            return null;
+        }
+        // Get at most 8 nodes around the current node
+        private List<Node> GetNearNodeList(Node currentNode)
+        {
+            List<Node> nearNodeList = new List<Node>();
+            if(currentNode.x -1 >= 0)
+            {
+                nearNodeList.Add(grid.GetValue(currentNode.x -1, currentNode.y));
+                if(currentNode.y -1 >= 0)
+                {
+                    nearNodeList.Add(grid.GetValue(currentNode.x - 1, currentNode.y -1));
+                }
+                if(currentNode.y +1 < grid.height)
+                {
+                    nearNodeList.Add(grid.GetValue(currentNode.x - 1, currentNode.y + 1));
+                }
+            }
+            if(currentNode.x +1 < grid.width)
+            {
+                nearNodeList.Add(grid.GetValue(currentNode.x + 1, currentNode.y));
+                if (currentNode.y - 1 >= 0)
+                {
+                    nearNodeList.Add(grid.GetValue(currentNode.x + 1, currentNode.y - 1));
+                }
+                if (currentNode.y + 1 < grid.height)
+                {
+                    nearNodeList.Add(grid.GetValue(currentNode.x + 1, currentNode.y + 1));
+                }
+            }
+
+            if(currentNode.y - 1 >= 0)
+            {
+                nearNodeList.Add(grid.GetValue(currentNode.x, currentNode.y - 1));
+            }
+            if(currentNode.y + 1 <= grid.height)
+            {
+                nearNodeList.Add(grid.GetValue(currentNode.x, currentNode.y + 1));
+            }
+
+            return nearNodeList;
+        }
+        //
+        private List<Node> CalculatePath(Node endNode)
+        {
+            List<Node> path = new List<Node>();
+            path.Add(endNode);
+            Node currentNode = endNode;
+            while(currentNode.cameFromNode != null)
+            {
+                path.Add(currentNode.cameFromNode);
+                currentNode = currentNode.cameFromNode; 
+            }
+            path.Reverse();
+            return path;
+        }
+        //Calculate cost from node A to node B 
+        private int CalculateDistanceCost(Node a, Node b)
+        {
+            int xDistance = Mathf.Abs(a.x - b.x);
+            int yDistance = Mathf.Abs(a.y - b.y);
+            int remaining = Mathf.Abs(xDistance - yDistance);
+            return MOVE_DIAGONAL_COST * Mathf.Min(xDistance, yDistance) + MOVE_STRAIGHT_COST * remaining;
+        }
+        //Get lowest F cost node in the List
+        private Node GetLowestFCostNode(List<Node> nodeList)
+        {
+            Node lowestFCost = nodeList[0];
+            for(int i = 1; i < nodeList.Count; i++)
+            {
+                if(nodeList[i].fCost < lowestFCost.fCost)
+                {
+                    lowestFCost = nodeList[i];
+                }
+            }
+            return lowestFCost;
+        }
+    }
+}
+

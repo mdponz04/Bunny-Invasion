@@ -10,6 +10,14 @@ namespace HealthNamespace
     {
         public event EventHandler OnHealthChanged;
         public event EventHandler OnDeath;
+        /*public class OnDeathEventArgs : EventArgs
+        {
+            public GameObject gameObject;
+            public OnDeathEventArgs(GameObject gameObject)
+            {
+                this.gameObject = gameObject;
+            }
+        }*/
         public float health { get; private set; }
         public float maxHealth { get; private set; }
         public void Setup(float maxHealth)
@@ -30,7 +38,7 @@ namespace HealthNamespace
             //trigger death
             if(health <= 0)
             {
-
+                Die();
             }
         }
 
@@ -53,9 +61,6 @@ namespace HealthNamespace
         {
             //trigger death event
             OnDeath?.Invoke(this, EventArgs.Empty);
-
-            Debug.Log("Character has died!");
-            
         }
     }
 }

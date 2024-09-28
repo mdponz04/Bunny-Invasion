@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 namespace BunnyNamespace
 {
-    public class SpawnBunny : MonoBehaviour
+    public class BunnySpawning : MonoBehaviour
     {
         //Bunny prefabs for spawning
         [SerializeField] private GameObject bunnyPrefab;

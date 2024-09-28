@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 8294664438672914966}
   - component: {fileID: 3478912278595995199}
   - component: {fileID: 2737078358936304406}
-  - component: {fileID: 3102417387280343253}
+  - component: {fileID: 7986311375917779092}
   m_Layer: 0
   m_Name: Bunny
   m_TagString: Untagged
@@ -136,7 +136,7 @@ Transform:
   m_GameObject: {fileID: 6614207745480724693}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.87, y: 15.43, z: -1}
+  m_LocalPosition: {x: -6.87, y: 15.43, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -225,12 +225,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6614207745480724693}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18f561832c741e3478552009615c4baf, type: 3}
+  m_Script: {fileID: 11500000, guid: 899b9894eff3267459f96e7be501e081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bunnyMaxHealth: 200
   bunnyAttackDamage: 10
   healthBar: {fileID: 1556694677324914830}
+  healthSystem: {fileID: 0}
 --- !u!114 &2737078358936304406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,10 +241,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6614207745480724693}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b77965bd0d317d0488ce0eb0fc8efa6d, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d81efebd4cf91f4fb05fe399b06c13f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3102417387280343253
+  healthSystem: {fileID: 0}
+--- !u!114 &7986311375917779092
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

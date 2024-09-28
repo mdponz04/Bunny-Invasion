@@ -13,15 +13,15 @@ namespace DamageNamespace
             Damageable target = collision.GetComponent<Damageable>();
             IDamageSource damageSource = GetComponentInParent<IDamageSource>();
 
-            doDamage(target, damageSource);
+            DoDamage(target, damageSource);
         }
 
-        private void doDamage(Damageable target, IDamageSource damageSource)
+        private void DoDamage(Damageable target, IDamageSource damageSource)
         {
             if(target != null && damageSource != null)
             {
-                target.takeDamage(damageSource.dealDamage());
-                Debug.Log("target take: " + damageSource.dealDamage() + " damage.");
+                target.TakeDamage(damageSource.DealDamage());
+                Debug.Log("target take: " + damageSource.DealDamage() + " damage.");
             }
         }
     }

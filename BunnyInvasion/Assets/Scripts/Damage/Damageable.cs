@@ -17,7 +17,7 @@ namespace DamageNamespace
             }
         }
 
-        public void takeDamage(float damageAmount)
+        public void TakeDamage(float damageAmount)
         {
             Debug.Log("damage: " + damageAmount);
             healthSystem.Damage(damageAmount);

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using DamageNamespace;
 
 namespace BunnyNamespace
 {
@@ -11,8 +12,8 @@ namespace BunnyNamespace
     {
         //Bunny stats
         /*[SerializeField] private float moveSpeed = .5f;*/
-        [SerializeField] private float bunnyMaxHealth = 200f;
-        [SerializeField] private float bunnyAttackDamage = 10f;
+        [SerializeField] private float maxHealth = 200f;
+        [SerializeField] private float attackDamage = 10f;
         
         //Component attach fields
         [SerializeField] private HealthBar healthBar;
@@ -28,10 +29,27 @@ namespace BunnyNamespace
                 healthSystem = GetComponent<HealthSystem>();
             }
 
-            healthSystem.Setup(bunnyMaxHealth);
+            healthSystem.Setup(maxHealth);
             healthBar.Setup(healthSystem);
+
+            healthSystem.OnDeath += HandleOnDeath;
         }
-        
+
+        private void HandleOnDeath(object sender, System.EventArgs e)
+        {
+            Debug.Log("Destroy: " + gameObject.name);
+            
+            //Destroy this object
+            Destroy(gameObject);
+        }
+        private void OnDestroy()
+        {
+            if (healthSystem != null)
+            {
+                healthSystem.OnDeath -= HandleOnDeath;
+            }
+        }
+
         private void Update()
         {
             HandleFinding();
@@ -50,7 +68,7 @@ namespace BunnyNamespace
         }
 
         
-        float IDamageSource.dealDamage() => bunnyAttackDamage;
+        float IDamageSource.DealDamage() => attackDamage;
     }
 }
 

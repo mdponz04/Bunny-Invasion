@@ -1,4 +1,5 @@
 using HealthNamespace;
+using DamageNamespace;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -37,7 +38,7 @@ namespace PlayerNamespace
         private bool isWalking;
         private Rigidbody2D playerRigidbody2D;
         private Vector3 moveDir;
-        private Transform playerTransform;
+        
 
         private void Awake()
         {
@@ -58,6 +59,25 @@ namespace PlayerNamespace
 
             healthSystem.Setup(maxHealth);
             healthBar.Setup(healthSystem);
+
+            healthSystem.OnDeath += HandleOnDeath;
+        }
+
+        private void HandleOnDeath(object sender, EventArgs e)
+        {
+            Debug.Log("Destroy: " + Instance.name);
+            //Reset instance
+            Instance = null;
+            //Destroy this object
+            Destroy(gameObject);
+        }
+
+        private void OnDestroy()
+        {
+            if(healthSystem != null)
+            {
+                healthSystem.OnDeath -= HandleOnDeath;
+            }
         }
 
         private void Update()
@@ -178,7 +198,7 @@ namespace PlayerNamespace
             DisableAttackZone();                    // Disable the attack zone after the delay
         }
         
-        float IDamageSource.dealDamage() => attackDamage;
+        float IDamageSource.DealDamage() => attackDamage;
     }
 }
 
