@@ -8,18 +8,9 @@ namespace mapNamespace
 {
     public class Grid
     {
-        public event EventHandler<OnMapChangedEventArgs> OnMapChanged;
-        public class OnMapChangedEventArgs : EventArgs
-        {
-            public Vector3 worldPosition;
-            public OnMapChangedEventArgs(Vector3 worldPosition)
-            {
-                this.worldPosition = worldPosition;
-            }
-        }
         public int width {  get; private set; }
         public int height {  get; private set; }
-        private float cellSize;
+        public float cellSize { get; private set; }
         private Node[,] gridArray;
         private Vector3 originPosition;
         private object value;
@@ -38,13 +29,13 @@ namespace mapNamespace
                 {
                     SetValue(x, y, new Node(this, x, y));
                     //Draw line for debuging
-                    /*UtilsClass.CreateWorldText(gridArray[x, y].ToString(), null, GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * 0.5f, 10, Color.red, TextAnchor.MiddleCenter);
+                    UtilsClass.CreateWorldText(gridArray[x, y].ToString(), null, GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * 0.5f, 10, Color.red, TextAnchor.MiddleCenter);
                     Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.blue, 100f);
-                    Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), Color.blue, 100f);*/
+                    Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), Color.blue, 100f);
                 }
             }
-            /*Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.blue, 100f);
-            Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.blue, 100f);*/
+            Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.blue, 100f);
+            Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.blue, 100f);
         }
 
         public Grid(int width, int height, Node value)
@@ -99,10 +90,6 @@ namespace mapNamespace
             GetXY(worldPosition, out x, out y);
 
             return GetValue(x, y);
-        }
-        public void TriggerMapChange(Vector3 worldPosition)
-        {
-            OnMapChanged?.Invoke(this, new OnMapChangedEventArgs(worldPosition));
         }
     }
 }

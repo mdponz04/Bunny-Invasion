@@ -23,6 +23,26 @@ namespace mapNamespace
             this.width = width;
             this.height = height;
         }
+        public List<Vector3> findpath(Vector3 startWorldPosition, Vector3 endWorldPosition, float cellSize)
+        {
+            grid.GetXY(startWorldPosition, out int startX, out int startY);
+            grid.GetXY(endWorldPosition, out int endX, out int endY);
+            List<Node> path = findPath(startX, startY, endX, endY);
+
+            if(path == null)
+            {
+                return null;
+            }
+
+            List<Vector3> vectorPath = new();
+            Vector3 vectorOneIn2D = new Vector3(1f, 1f, 0f);
+            foreach(Node node in path)
+            {
+                vectorPath.Add(grid.GetWorldPosition(node.x, node.y) + vectorOneIn2D * cellSize * .5f);
+            }
+
+            return vectorPath;
+        }
         public List<Node> findPath(int startX, int startY, int endX, int endY)
         {
             //Grid position for start and end node
@@ -125,7 +145,7 @@ namespace mapNamespace
 
             return nearNodeList;
         }
-        //
+        //Calculate the whole path then return to List<Node>
         private List<Node> CalculatePath(Node endNode)
         {
             List<Node> path = new List<Node>();
@@ -159,6 +179,36 @@ namespace mapNamespace
                 }
             }
             return lowestFCost;
+        }
+        //Check collider inside the cell
+        public bool IsCellOccupied(int x, int y, float cellSize)
+        {
+            Vector3 vectorOne2D = new Vector3(1f, 1f, 0f);
+            // Get the corner position of the cell
+            Vector3 cellCornerPosition = grid.GetWorldPosition(x, y);
+
+            // Calculate the center of the cell (corner + half cell size)
+            Vector2 cellCenterPosition = cellCornerPosition + vectorOne2D;
+
+            // Use OverlapBox for accurate 2D collision checking inside the square cell
+            Collider2D collider = Physics2D.OverlapBox(cellCenterPosition, new Vector2(cellSize, cellSize), 0f);
+            if(collider != null)
+            {
+                Debug.Log("is occupied: " + collider != null);
+            }
+            // Return true if a collider is found
+            return collider != null;
+        }
+        public void UpdateWalkableNodes()
+        {
+
+            for(int x = 0; x < grid.width; x++)
+            {
+                for(int y = 0; y < grid.height; y++)
+                {
+                    IsCellOccupied(x, y, grid.cellSize);
+                }
+            }
         }
     }
 }

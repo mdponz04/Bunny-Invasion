@@ -11,8 +11,8 @@ namespace BunnyNamespace
     public class Bunny : MonoBehaviour, IDamageSource
     {
         //Bunny stats
-        /*[SerializeField] private float moveSpeed = .5f;*/
-        [SerializeField] private float maxHealth = 200f;
+        [SerializeField] private float moveSpeed = .5f;
+        [SerializeField] private float maxHealth = 20f;
         [SerializeField] private float attackDamage = 10f;
         
         //Component attach fields
@@ -20,7 +20,8 @@ namespace BunnyNamespace
         
         
         private HealthSystem healthSystem;
-        
+        Vector3 moveDir;
+
         private void Awake()
         {
             //Setup health
@@ -52,15 +53,22 @@ namespace BunnyNamespace
 
         private void Update()
         {
-            HandleFinding();
+            HandleMove();
             HandleAttack();
 
             
         }
 
-        private void HandleFinding()
+        private void HandleMove()
         {
-            //Path finding
+            
+            moveDir = new();
+
+
+
+
+            /*transform.position += moveDir * moveSpeed * Time.deltaTime;*/
+
         }
         private void HandleAttack()
         {

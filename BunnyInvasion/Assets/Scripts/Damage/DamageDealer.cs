@@ -9,7 +9,7 @@ namespace DamageNamespace
     {
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            Debug.Log(collision.name);
+            /*Debug.Log(collision.name);*/
             Damageable target = collision.GetComponent<Damageable>();
             IDamageSource damageSource = GetComponentInParent<IDamageSource>();
 
@@ -21,7 +21,7 @@ namespace DamageNamespace
             if(target != null && damageSource != null)
             {
                 target.TakeDamage(damageSource.DealDamage());
-                Debug.Log("target take: " + damageSource.DealDamage() + " damage.");
+                Debug.Log("target " + target.name + " take: " + damageSource.DealDamage() + " damage.");
             }
         }
     }
