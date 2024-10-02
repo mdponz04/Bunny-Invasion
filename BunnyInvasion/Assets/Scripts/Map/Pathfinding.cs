@@ -27,8 +27,8 @@ namespace mapNamespace
         {
             grid.GetXY(startWorldPosition, out int startX, out int startY);
             grid.GetXY(endWorldPosition, out int endX, out int endY);
+            
             List<Node> path = findPath(startX, startY, endX, endY);
-
             if(path == null)
             {
                 return null;
@@ -181,32 +181,14 @@ namespace mapNamespace
             return lowestFCost;
         }
         //Check collider inside the cell
-        public bool IsCellOccupied(int x, int y, float cellSize)
-        {
-            Vector3 vectorOne2D = new Vector3(1f, 1f, 0f);
-            // Get the corner position of the cell
-            Vector3 cellCornerPosition = grid.GetWorldPosition(x, y);
-
-            // Calculate the center of the cell (corner + half cell size)
-            Vector2 cellCenterPosition = cellCornerPosition + vectorOne2D;
-
-            // Use OverlapBox for accurate 2D collision checking inside the square cell
-            Collider2D collider = Physics2D.OverlapBox(cellCenterPosition, new Vector2(cellSize, cellSize), 0f);
-            if(collider != null)
-            {
-                Debug.Log("is occupied: " + collider != null);
-            }
-            // Return true if a collider is found
-            return collider != null;
-        }
+        
         public void UpdateWalkableNodes()
         {
-
             for(int x = 0; x < grid.width; x++)
             {
                 for(int y = 0; y < grid.height; y++)
                 {
-                    IsCellOccupied(x, y, grid.cellSize);
+                    grid.GetValue(x, y).UpdateWalkable();
                 }
             }
         }

@@ -70,6 +70,13 @@ namespace PlayerNamespace
             Instance = null;
             //Destroy this object
             Destroy(gameObject);
+            // Close the game
+            Application.Quit();
+
+            // If running in the editor, stop play mode
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
         }
 
         private void OnDestroy()
@@ -99,7 +106,6 @@ namespace PlayerNamespace
 
         private void HandleAttacking()
         {
-            
             if (Input.GetMouseButtonDown(0) && Time.time >= nextAttackTime)
             {
                 //Enable attack zone
@@ -199,6 +205,8 @@ namespace PlayerNamespace
         }
         
         float IDamageSource.DealDamage() => attackDamage;
+        float IDamageSource.GetAttackCooldown() => attackCooldown;
+        public Vector3 GetTransformPosition() => transform.position;
     }
 }
 

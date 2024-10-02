@@ -34,11 +34,16 @@ public class Testing : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+
+
+
+
+
+        /*if(Input.GetMouseButtonDown(0))
         {
             //Debug.Log("Cell size: " + cellSize);
             Vector3 mouseWorldPosition = UtilsClass.GetMouseWorldPosition();
-            /*grid.GetXY(mouseWorldPosition, out int x, out int y);
+            *//*grid.GetXY(mouseWorldPosition, out int x, out int y);
             
             List<Node> path = pathfinding.findPath(0, 0, x, y);
             if(path != null)
@@ -51,13 +56,14 @@ public class Testing : MonoBehaviour
                     }
                     
                 }
-            }*/
-            SetTargetPosition(mouseWorldPosition);   
+            }*//*
+            SetTargetPosition(mouseWorldPosition);
         }
 
         HandleMove();
+        */
     }
-    public void SetTargetPosition(Vector3 targetPosition)
+    /*private void SetTargetPosition(Vector3 targetPosition)
     {
         currentPathIndex = 0;
         pathVectorList = pathfinding.findpath(GetPosition(), targetPosition, cellSize);
@@ -66,19 +72,22 @@ public class Testing : MonoBehaviour
         {
             pathVectorList.RemoveAt(0);
         }
+        
         Debug.Log("target position: " + targetPosition);
         Debug.Log("length: " + pathVectorList.Count + " cells");
     }
+
     private void HandleMove()
     {
         if(pathVectorList != null)
         {
+            pathfinding.UpdateWalkableNodes();
             Vector3 targetPosition = pathVectorList[currentPathIndex];
             
             if(Vector3.Distance(transform.position, targetPosition) > .5f)
             {
                 Vector3 moveDir = (targetPosition - transform.position).normalized;
-                /*Debug.Log("Move direction vector: " + moveDir);*/
+                *//*Debug.Log("Move direction vector: " + moveDir);*//*
                 moveDir.z = 0f;
                 
                 float moveSpeed = 10f;
@@ -101,5 +110,5 @@ public class Testing : MonoBehaviour
     private Vector3 GetPosition()
     {
         return transform.position;
-    }
+    }*/
 }

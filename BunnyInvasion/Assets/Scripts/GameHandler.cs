@@ -6,11 +6,20 @@ using HealthNamespace;
 
 public class GameHandler : MonoBehaviour
 {
+    public GameHandler Instance { get; private set; }
     [SerializeField] private TextMeshProUGUI timerUI;
     private float elapsedTime = 0f; //The time game running in second 
     private bool isGameRunning;
 
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Debug.LogError("There is more than 1 game handler!!!");
+        }
 
+        Instance = this;
+    }
     private void Start()
     {
         Debug.Log("Game start!!!");

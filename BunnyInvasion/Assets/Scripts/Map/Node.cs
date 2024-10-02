@@ -30,6 +30,36 @@ namespace mapNamespace
         {
             return x + ", " + y;
         }
+        //Check collider inside the node
+        private bool IsNodeOccupied()
+        {
+            Vector3 vectorOne2D = new Vector3(1f, 1f, 0f);
+            // Get the corner position of the cell
+            Vector3 cellCornerPosition = grid.GetWorldPosition(x, y);
+
+            // Calculate the center of the cell (corner + half cell size)
+            Vector2 cellCenterPosition = cellCornerPosition + vectorOne2D;
+
+            // Use OverlapBox for accurate 2D collision checking inside the square cell
+            Collider2D collider = Physics2D.OverlapBox(cellCenterPosition, new Vector2(grid.cellSize, grid.cellSize), 0f);
+            /*if (collider != null)
+            {
+                Debug.Log("is occupied by " + collider.name + " at: (" + x + ", " + y + ")");
+            }*/
+            // Return true if a collider is found
+            return collider != null;
+        }
+        public void UpdateWalkable()
+        {
+            if (IsNodeOccupied())
+            {
+                isWalkable = false;
+            }
+            else
+            {
+                isWalkable = true;
+            }
+        }
     }
 }
 

@@ -7,16 +7,26 @@ namespace DamageNamespace
 {
     public class DamageDealer : MonoBehaviour
     {
+        private Damageable target;
+        private IDamageSource damageSource;
+        private float attackCooldown;
+        
+        private void Start()
+        {
+            damageSource = GetComponentInParent<IDamageSource>();
+            attackCooldown = damageSource.GetAttackCooldown();
+            Debug.Log(damageSource.GetAttackCooldown() + ", dmg: " + damageSource.DealDamage());
+        }
         private void OnTriggerEnter2D(Collider2D collision)
         {
             /*Debug.Log(collision.name);*/
-            Damageable target = collision.GetComponent<Damageable>();
-            IDamageSource damageSource = GetComponentInParent<IDamageSource>();
-
-            DoDamage(target, damageSource);
+            if (!collision.CompareTag("Player"))
+            {
+                target = collision.GetComponent<Damageable>();
+                DoDamage(target);
+            }
         }
-
-        private void DoDamage(Damageable target, IDamageSource damageSource)
+        public void DoDamage(Damageable target)
         {
             if(target != null && damageSource != null)
             {
