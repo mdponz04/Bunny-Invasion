@@ -20,7 +20,7 @@ namespace DamageNamespace
         private void OnTriggerEnter2D(Collider2D collision)
         {
             /*Debug.Log(collision.name);*/
-            if (!collision.CompareTag("Player"))
+            if (!collision.CompareTag("Player") && !collision.CompareTag(damageSource.GetTag()))
             {
                 target = collision.GetComponent<Damageable>();
                 DoDamage(target);

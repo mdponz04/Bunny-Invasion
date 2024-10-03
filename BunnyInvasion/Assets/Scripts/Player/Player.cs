@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using static PlayerNamespace.PlayerVisual;
+using UnityEngine.AI;
 
 namespace PlayerNamespace
 {
@@ -32,6 +33,8 @@ namespace PlayerNamespace
         [SerializeField] private HealthBar healthBar;
         [SerializeField] private Transform attackEndPointPositionTransform;
         [SerializeField] private BoxCollider2D attackZone;
+        [SerializeField] private Transform footTransform;
+        [SerializeField] private AudioHandler audioHandler;
 
         private HealthSystem healthSystem;
         private float nextAttackTime = 0f;
@@ -61,6 +64,8 @@ namespace PlayerNamespace
             healthBar.Setup(healthSystem);
 
             healthSystem.OnDeath += HandleOnDeath;
+            
+
         }
 
         private void HandleOnDeath(object sender, EventArgs e)
@@ -112,6 +117,7 @@ namespace PlayerNamespace
                 EnableAttackZone();
                 //perform attack
                 Vector3 mousePosition = GetMouseWorldPosition2D();
+                audioHandler.PlaySFX(audioHandler.playerAttack);
 
                 //Trigger attack event
                 OnAttack?.Invoke(this, new OnAttackEventArgs
@@ -203,10 +209,12 @@ namespace PlayerNamespace
             yield return new WaitForSeconds(delay); // Wait for the delay
             DisableAttackZone();                    // Disable the attack zone after the delay
         }
-        
+
         float IDamageSource.DealDamage() => attackDamage;
         float IDamageSource.GetAttackCooldown() => attackCooldown;
         public Vector3 GetTransformPosition() => transform.position;
+        public Vector3 GetFootPosition() => footTransform.position;
+        string IDamageSource.GetTag() => tag;
     }
 }
 

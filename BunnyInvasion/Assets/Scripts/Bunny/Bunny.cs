@@ -12,7 +12,7 @@ namespace BunnyNamespace
     public class Bunny : MonoBehaviour, IDamageSource
     {
         //Bunny stats
-        [SerializeField] private float moveSpeed = 5f;
+        /*[SerializeField] private float moveSpeed = 5f;*/
         [SerializeField] private float maxHealth = 20f;
         [SerializeField] private float attackDamage = 10f;
         [SerializeField] private float attackCooldown = 5f;
@@ -68,7 +68,7 @@ namespace BunnyNamespace
             /*HandleMove();*/
         }
 
-        private void HandleMove()
+        /*private void HandleMove()
         {        
             pathfinding.SetTargetPosition(transform.position, out int pathIndex, out List<Vector3> path);
             pathVectorList = path;
@@ -86,7 +86,7 @@ namespace BunnyNamespace
                 if (Vector3.Distance(transform.position, targetPosition) > .5f)
                 {
                     Vector3 moveDir = (targetPosition - transform.position).normalized;
-                    /*Debug.Log("Move direction vector: " + moveDir);*/
+                    *//*Debug.Log("Move direction vector: " + moveDir);*//*
                     moveDir.z = 0f;
                         
                     transform.position += moveDir * Time.deltaTime * moveSpeed;
@@ -104,7 +104,7 @@ namespace BunnyNamespace
         private void StopMoving()
         {
             pathVectorList = null;
-        }
+        }*/
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -130,6 +130,7 @@ namespace BunnyNamespace
 
         float IDamageSource.DealDamage() => attackDamage;
         float IDamageSource.GetAttackCooldown() => attackCooldown;
+        string IDamageSource.GetTag() => tag;
     }
 }
 

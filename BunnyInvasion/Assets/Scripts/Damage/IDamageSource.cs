@@ -4,5 +4,6 @@ namespace DamageNamespace
     {
         public float DealDamage();
         public float GetAttackCooldown();
+        public string GetTag();
     }
 }
