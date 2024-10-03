@@ -1,18 +1,15 @@
 using HealthNamespace;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using DamageNamespace;
-using mapNamespace;
 
 namespace BunnyNamespace
 {
     public class Bunny : MonoBehaviour, IDamageSource
     {
         //Bunny stats
-        /*[SerializeField] private float moveSpeed = 5f;*/
+        [SerializeField] private float moveSpeed = 5f;
         [SerializeField] private float maxHealth = 20f;
         [SerializeField] private float attackDamage = 10f;
         [SerializeField] private float attackCooldown = 5f;
@@ -20,15 +17,15 @@ namespace BunnyNamespace
         
         //Component attach fields
         [SerializeField] private HealthBar healthBar;
-        private BunnyPathfinding pathfinding;
+        /*private BunnyPathfinding pathfinding;*/
         
         
         private HealthSystem healthSystem;
-        Vector3 moveDir;
+        /*private Vector3 moveDir;*/
         private float nextAttackTime = 0f;
         private DamageDealer damageDealer;
         private List<Vector3> pathVectorList;
-        private int currentPathIndex;
+        /*private int currentPathIndex;*/
 
         private void Awake()
         {
@@ -131,6 +128,7 @@ namespace BunnyNamespace
         float IDamageSource.DealDamage() => attackDamage;
         float IDamageSource.GetAttackCooldown() => attackCooldown;
         string IDamageSource.GetTag() => tag;
+        public float GetMoveSpeed() => moveSpeed;
     }
 }
 

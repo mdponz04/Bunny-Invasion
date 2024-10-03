@@ -333,7 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899b9894eff3267459f96e7be501e081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.5
+  moveSpeed: 5
   maxHealth: 20
   attackDamage: 10
   attackCooldown: 5
